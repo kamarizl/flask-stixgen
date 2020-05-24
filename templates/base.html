@@ -1,0 +1,19 @@
+<html>
+
+<head>
+  <title>
+    {% block title %} {% endblock %}
+  </title>
+</head>
+
+<body>
+  <a href="{{ url_for('home') }}">home</a>
+  <!-- <a href="{{ url_for('submit') }}">submit</a> -->
+
+  {% block content %}
+
+  {% endblock %}
+
+</body>
+
+</html>
