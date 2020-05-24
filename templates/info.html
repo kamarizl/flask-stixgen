@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %} Stix Generator {% endblock %}
+
+{% block content %}
+
+<form action="/" method="POST">
+  {{ form.hidden_tag() }}
+  {{ form.ip.label }} {{ form.ip(size=20) }}<br>
+  <input type="submit" value="Go">
+</form>
+
+{% if result %}
+
+Result: <br>
+<pre>
+  {{ result }}
+</pre>
+
+{% endif %}
+
+{%endblock%}
