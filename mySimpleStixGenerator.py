@@ -107,7 +107,9 @@ def main(iocs=iocs):
         stix_package.add_indicator(indicator_email_subject)
 
     # print(stix_package.to_xml(encoding=None))
+    # print(type(stix_package.to_xml(encoding=None)))
     return stix_package.to_xml(encoding=None)
+    
 
 
 if __name__ == '__main__':

@@ -1,9 +1,10 @@
 from mySimpleStixGenerator import main
 
-from flask import Flask, request, redirect, url_for, render_template
+from flask import Flask, request, render_template, send_file
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField
 from wtforms.validators import DataRequired
+from io import BytesIO
 
 
 SECRET_KEY = 'secret'
@@ -15,9 +16,9 @@ app.config.from_object(__name__)
 class MyForm(FlaskForm):
     title = StringField('STIX Title', validators=[DataRequired()])
     desc = TextAreaField('Description')
-    ip = TextAreaField('IP Address')
+    ip = TextAreaField('IP Addresses')
     hashes = TextAreaField('Hashes')
-    fname = TextAreaField('Filename')
+    fname = TextAreaField('Filenames')
     urls = TextAreaField('URLs')
     subject = TextAreaField('Email Subject')
 
@@ -27,7 +28,7 @@ def home():
     form = MyForm()
 
     if form.validate_on_submit():
-       
+
         iocs = {
             'title': request.form['title'],
             'desc': request.form['desc'],
@@ -37,9 +38,15 @@ def home():
             'urls': request.form['urls'].splitlines(),
             'subject': request.form['subject'].splitlines()
         }
-        
+
         result = main(iocs=iocs)
 
-        return render_template('info.html', form=form, result=result)
+        # convert str object to bytes object. it seem flask use StringIO only for real file
+        data = BytesIO(result.encode())
+        
+        filename = iocs['title'].title().replace(" ","")
+            
+        # return render_template('info.html', form=form, result=result)
+        return send_file(data, as_attachment=True, attachment_filename=filename+".xml")
 
     return render_template("info.html", form=form)
