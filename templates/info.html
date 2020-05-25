@@ -3,39 +3,33 @@
 {% block title %} Stix Generator {% endblock %}
 
 {% block content %}
-
-<div class="container">
-<h1>STIX Generator</h1>
-</div>
-
-<div class="container">
+<br>
+<!-- put some not how to fill the form -->
   <form action="/" method="POST" class="form-group">
     {{ form.hidden_tag() }}
     {{ form.title.label }} <br>
-    {{ form.title(size=48)}}<br>
+    {{ form.title(size=78)}}<br>
     {{ form.desc.label }}<br>
-    {{ form.desc(rows='3',cols='50') }}<br>
+    {{ form.desc(rows='3',cols='80') }}<br>
     {{ form.ip.label }} <br>
-    {{ form.ip(rows='3',cols='50') }} <br>
+    {{ form.ip(rows='3',cols='80') }} <br>
     {{ form.hashes.label }} <br>
-    {{ form.hashes(rows='3',cols='50') }} <br>
+    {{ form.hashes(rows='3',cols='80') }} <br>
     {{ form.fname.label }} <br>
-    {{ form.fname(rows='3',cols='50') }} <br>
+    {{ form.fname(rows='3',cols='80') }} <br>
     {{ form.urls.label }} <br>
-    {{ form.urls(rows='3',cols='50') }} <br>
+    {{ form.urls(rows='3',cols='80') }} <br>
     {{ form.subject.label }} <br>
-    {{ form.subject(rows='3',cols='50') }} <br>
+    {{ form.subject(rows='3',cols='80') }} <br>
     <button type="submit" class="btn btn-primary">Generate</button>
   </form>
   
   {% if result %}
-  Result: <br>
   <pre>
-  {{ result }}
+    {{ result }}
   </pre>
 
   {% endif %}
 
-</div>
 
 {%endblock%}

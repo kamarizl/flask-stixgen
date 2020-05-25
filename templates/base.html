@@ -11,13 +11,19 @@
 </head>
 
 <body>
-  <a href="{{ url_for('home') }}">home</a>
-  <br><br>
-
-  {% block content %}
-
+  {% block nav %}
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a href="{{ url_for('home') }}">
+        <span class="navbar-brand mb-0 h1">STIX Generator</span>
+      </a>
+    </nav>
+  </div>
   {% endblock %}
-
+  <div class="container">
+    {% block content %}
+    {% endblock %}
+  </div>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
     crossorigin="anonymous"></script>
