@@ -3,14 +3,17 @@
 {% block title %} Stix Generator {% endblock %}
 
 {% block content %}
-<br>
-<!-- put some not how to fill the form -->
-  <form action="/" method="POST" class="form-group">
+<p class="h5">
+  Title is mandatory. Please use one line per IOCs.
+</p>
+
+<form action="/" method="POST" class="form-group">
+  <p class="h6">
     {{ form.hidden_tag() }}
-    {{ form.title.label }} <br>
+    {{ form.title.label }}* <br>
     {{ form.title(size=78)}}<br>
-    {{ form.desc.label }}<br>
-    {{ form.desc(rows='3',cols='80') }}<br>
+    {{ form.desc.label }} <br>
+    {{ form.desc(rows='2',cols='80') }}<br>
     {{ form.ip.label }} <br>
     {{ form.ip(rows='3',cols='80') }} <br>
     {{ form.hashes.label }} <br>
@@ -22,14 +25,15 @@
     {{ form.subject.label }} <br>
     {{ form.subject(rows='3',cols='80') }} <br>
     <button type="submit" class="btn btn-primary">Generate</button>
-  </form>
-  
-  {% if result %}
-  <pre>
-    {{ result }}
-  </pre>
+  </p>
+</form>
 
-  {% endif %}
+{% if result %}
+<pre>
+{{ result }}
+</pre>
+
+{% endif %}
 
 
 {%endblock%}
