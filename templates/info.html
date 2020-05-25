@@ -4,31 +4,38 @@
 
 {% block content %}
 
-<form action="/" method="POST">
-  {{ form.hidden_tag() }}
-  {{ form.title.label }}: {{ form.title(size=40)}}<br>
-  {{ form.desc.label }}<br>
-  {{ form.desc(rows='3',cols='50') }}<br>
-  {{ form.ip.label }} <br>
-  {{ form.ip(rows='7',cols='50') }} <br>
-  {{ form.hashes.label }} <br>
-  {{ form.hashes(rows='3',cols='50') }} <br>
-  {{ form.fname.label }} <br>
-  {{ form.fname(rows='3',cols='50') }} <br>
-  {{ form.urls.label }} <br>
-  {{ form.urls(rows='3',cols='50') }} <br>
-  {{ form.subject.label }} <br>
-  {{ form.subject(rows='3',cols='50') }} <br>
-  <input type="submit" value="Generate">
-</form>
+<div class="container">
+<h1>STIX Generator</h1>
+</div>
 
-{% if result %}
+<div class="container">
+  <form action="/" method="POST" class="form-group">
+    {{ form.hidden_tag() }}
+    {{ form.title.label }} <br>
+    {{ form.title(size=48)}}<br>
+    {{ form.desc.label }}<br>
+    {{ form.desc(rows='3',cols='50') }}<br>
+    {{ form.ip.label }} <br>
+    {{ form.ip(rows='3',cols='50') }} <br>
+    {{ form.hashes.label }} <br>
+    {{ form.hashes(rows='3',cols='50') }} <br>
+    {{ form.fname.label }} <br>
+    {{ form.fname(rows='3',cols='50') }} <br>
+    {{ form.urls.label }} <br>
+    {{ form.urls(rows='3',cols='50') }} <br>
+    {{ form.subject.label }} <br>
+    {{ form.subject(rows='3',cols='50') }} <br>
+    <button type="submit" class="btn btn-primary">Generate</button>
+  </form>
+  
+  {% if result %}
+  Result: <br>
+  <pre>
+  {{ result }}
+  </pre>
 
-Result: <br>
-<pre>
-{{ result }}
-</pre>
+  {% endif %}
 
-{% endif %}
+</div>
 
 {%endblock%}

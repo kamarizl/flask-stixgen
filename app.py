@@ -1,6 +1,5 @@
-#!/bin/python3
-
 from mySimpleStixGenerator import main
+
 from flask import Flask, request, redirect, url_for, render_template
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField
