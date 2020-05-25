@@ -46,7 +46,7 @@ set_id_namespace(NAMESPACE)
 
 def main(iocs=iocs):
 
-    stix_header = STIXHeader(title=iocs['title'], description=stixDescription,
+    stix_header = STIXHeader(title=iocs['title'], description=iocs['desc'],
                              package_intents=["Indicators - Watchlist"])
 
     stix_package = STIXPackage(stix_header=stix_header)
@@ -106,7 +106,7 @@ def main(iocs=iocs):
             indicator_email_subject.add_observable(email_subject_object)
         stix_package.add_indicator(indicator_email_subject)
 
-    print(stix_package.to_xml(encoding=None))
+    # print(stix_package.to_xml(encoding=None))
     return stix_package.to_xml(encoding=None)
 
 

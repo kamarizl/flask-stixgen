@@ -6,15 +6,27 @@
 
 <form action="/" method="POST">
   {{ form.hidden_tag() }}
-  {{ form.ip.label }} {{ form.ip(size=20) }}<br>
-  <input type="submit" value="Go">
+  {{ form.title.label }}: {{ form.title(size=40)}}<br>
+  {{ form.desc.label }}<br>
+  {{ form.desc(rows='3',cols='50') }}<br>
+  {{ form.ip.label }} <br>
+  {{ form.ip(rows='7',cols='50') }} <br>
+  {{ form.hashes.label }} <br>
+  {{ form.hashes(rows='3',cols='50') }} <br>
+  {{ form.fname.label }} <br>
+  {{ form.fname(rows='3',cols='50') }} <br>
+  {{ form.urls.label }} <br>
+  {{ form.urls(rows='3',cols='50') }} <br>
+  {{ form.subject.label }} <br>
+  {{ form.subject(rows='3',cols='50') }} <br>
+  <input type="submit" value="Generate">
 </form>
 
 {% if result %}
 
 Result: <br>
 <pre>
-  {{ result }}
+{{ result }}
 </pre>
 
 {% endif %}
