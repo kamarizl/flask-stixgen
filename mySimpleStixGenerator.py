@@ -20,11 +20,22 @@ import warnings
 
 stixTitle = "Ransomware"
 stixDescription = "Description for this stix package"
-file_hashes = ['9F98609DB66E171E9E55110DEB7DA553']
+file_hashes = []
 filenames = []
 ip_addresses = ['127.0.0.127']
 urls = []
 email_subjects = []
+
+iocs = {
+    'title': stixTitle,
+    'desc': stixDescription,
+    'hash': file_hashes,
+    'fname': filenames,
+    'ips': ip_addresses,
+    'urls': urls,
+    'subject': email_subjects
+
+}
 
 # disable warning 'The use of this field has been deprecated' - STIXHeader()
 warnings.filterwarnings("ignore")
@@ -33,17 +44,18 @@ NAMESPACE = Namespace("http://bimb.com/stix", "bimb")
 set_id_namespace(NAMESPACE)
 
 
-def main():
-    stix_header = STIXHeader(title=stixTitle, description=stixDescription,
+def main(iocs=iocs):
+
+    stix_header = STIXHeader(title=iocs['title'], description=stixDescription,
                              package_intents=["Indicators - Watchlist"])
 
     stix_package = STIXPackage(stix_header=stix_header)
 
     # add indicator - file hash
-    if file_hashes:
+    if iocs.get('hash'):
         indicator_file_hash = Indicator(title="Malicious File")
         indicator_file_hash.add_indicator_type("File Hash Watchlist")
-        for file_hash in file_hashes:
+        for file_hash in iocs['hash']:
             file_object = File()
             file_object.add_hash(Hash(file_hash))
             file_object.hashes[0].simple_hash_value.condition = "Equals"
@@ -52,29 +64,29 @@ def main():
         stix_package.add_indicator(indicator_file_hash)
 
     # add indicator - file name
-    if filenames:
+    if iocs.get('fname'):
         indicator_filename = Indicator(title="Malicious File Name")
-        for file in filenames:
+        for file in iocs['fname']:
             file_object = File()
             file_object.file_name = file
             indicator_filename.add_observable(file_object)
         stix_package.add_indicator(indicator_filename)
 
     # add indicator - ip address
-    if ip_addresses:
+    if iocs.get('ips'):
         indicator_ip = Indicator(title="Malicious IP Address")
         indicator_ip.add_indicator_type("IP Watchlist")
-        for ip in ip_addresses:
+        for ip in iocs['ips']:
             addr = Address(address_value=ip, category=Address.CAT_IPV4)
             addr.condition = "Equals"
             indicator_ip.add_observable(addr)
         stix_package.add_indicator(indicator_ip)
 
     # add indicator - url
-    if urls:
+    if iocs.get('urls'):
         indicator_url = Indicator(title='Malicious URL')
         indicator_url.add_indicator_type("URL Watchlist")
-        for _url in urls:
+        for _url in iocs['urls']:
             url = URI()
             url.value = _url
             url.type_ = URI.TYPE_URL
@@ -83,10 +95,10 @@ def main():
         stix_package.add_indicator(indicator_url)
 
     # add indicator - email subject
-    if email_subjects:
+    if iocs.get('subject'):
         indicator_email_subject = Indicator(title='Malicious E-mail Subject')
         indicator_email_subject.add_indicator_type("Malicious E-mail")
-        for subject in email_subjects:
+        for subject in iocs['subject']:
             email_subject_object = EmailMessage()
             email_subject_object.header = EmailHeader()
             email_subject_object.header.subject = subject
@@ -94,7 +106,7 @@ def main():
             indicator_email_subject.add_observable(email_subject_object)
         stix_package.add_indicator(indicator_email_subject)
 
-    # print(stix_package.to_xml(encoding=None))
+    print(stix_package.to_xml(encoding=None))
     return stix_package.to_xml(encoding=None)
 
 
