@@ -7,10 +7,8 @@ from wtforms.validators import DataRequired
 from io import BytesIO
 
 
-SECRET_KEY = 'secret'
-
 app = Flask('__name__')
-app.config.from_object(__name__)
+app.config['SECRET_KEY']= 'secret'
 
 
 class MyForm(FlaskForm):
@@ -50,3 +48,7 @@ def home():
         return send_file(data, as_attachment=True, attachment_filename=filename+".xml")
 
     return render_template("info.html", form=form)
+
+ 
+if __name__ == '__main__':
+    app.run(debug=True)
