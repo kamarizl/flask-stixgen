@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+
+  stixgen:
+    image: my/flaskstixgen
+    container_name: my/flaskstixgen
+    hostname: stixgen
+    ports:
+      - "127.0.0.1:5151:80"
+    networks:
+      - stixgen
+    restart: unless-stopped
+
+networks:
+  stixgen:
+    name: stixgen
