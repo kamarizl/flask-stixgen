@@ -3,10 +3,10 @@ services:
 
   stixgen:
     image: my/flaskstixgen
-    container_name: my/flaskstixgen
+    container_name: stixgen
     hostname: stixgen
     ports:
-      - "127.0.0.1:5151:80"
+      - "127.0.0.1:5151:5000"
     networks:
       - stixgen
     restart: unless-stopped
@@ -14,3 +14,4 @@ services:
 networks:
   stixgen:
     name: stixgen
+
