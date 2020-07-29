@@ -6,7 +6,7 @@ services:
     container_name: stixgen
     hostname: stixgen
     ports:
-      - "127.0.0.1:5151:5000"
+      - "5151:5000"
     networks:
       - stixgen
     restart: unless-stopped
