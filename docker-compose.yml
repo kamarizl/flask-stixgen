@@ -2,6 +2,7 @@ version: "3.8"
 services:
 
   stixgen:
+    build: .
     image: my/flaskstixgen
     container_name: stixgen
     hostname: stixgen
@@ -14,4 +15,3 @@ services:
 networks:
   stixgen:
     name: stixgen
-
