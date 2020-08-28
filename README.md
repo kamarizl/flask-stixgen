@@ -1,5 +1,7 @@
 # flask-stixgen
 
+Simple app to generate STIX file.
+
 1. Clone the repo
 2. Use docker compose as below:
 
