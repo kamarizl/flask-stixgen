@@ -22,9 +22,10 @@ stixTitle = "Ransomware"
 stixDescription = "Description for this stix package"
 file_hashes = []
 filenames = []
-ip_addresses = ['127.0.0.127']
+ip_addresses = []
 urls = []
 email_subjects = []
+email_sender = ['kamarizal@gmail.com']
 
 iocs = {
     'title': stixTitle,
@@ -33,8 +34,8 @@ iocs = {
     'fname': filenames,
     'ips': ip_addresses,
     'urls': urls,
-    'subject': email_subjects
-
+    'subject': email_subjects,
+    'senders': email_sender
 }
 
 # disable warning 'The use of this field has been deprecated' - STIXHeader()
@@ -106,6 +107,19 @@ def main(iocs=iocs):
             indicator_email_subject.add_observable(email_subject_object)
         stix_package.add_indicator(indicator_email_subject)
 
+    # add indicator - email sender
+    if iocs.get('senders'):
+        indicator_email_sender = Indicator(title='Malicious E-mail Sender')
+        indicator_email_sender.add_indicator_type("Malicious E-mail")
+        for sender in iocs['senders']:
+            email_sender_object = EmailMessage()
+            email_sender_object.header = EmailHeader()
+            email_sender_object.header.sender = sender
+            email_sender_object.header.sender.condition = "Equals"
+            indicator_email_sender.add_observable(email_sender_object)
+        stix_package.add_indicator(indicator_email_sender)
+
+
     # print(stix_package.to_xml(encoding=None))
     # print(type(stix_package.to_xml(encoding=None)))
     return stix_package.to_xml(encoding=None)
@@ -113,4 +127,7 @@ def main(iocs=iocs):
 
 
 if __name__ == '__main__':
+    # stix_output = main()
+    # print(stix_output)
     main()
+    
