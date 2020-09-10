@@ -19,6 +19,8 @@ class MyForm(FlaskForm):
     fname = TextAreaField('Filenames')
     urls = TextAreaField('URLs')
     subject = TextAreaField('Email Subject')
+    domains = TextAreaField('Domains')
+    senders = TextAreaField('Senders')
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -34,7 +36,9 @@ def home():
             'ips': request.form['ip'].splitlines(),
             'fname': request.form['fname'].splitlines(),
             'urls': request.form['urls'].splitlines(),
-            'subject': request.form['subject'].splitlines()
+            'subject': request.form['subject'].splitlines(),
+            'domains': request.form['domains'].splitlines(),
+            'senders': request.form['senders'].splitlines()
         }
 
         result = main(iocs=iocs)
