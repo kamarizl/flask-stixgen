@@ -13,6 +13,7 @@ from stix.indicator import Indicator
 from cybox.objects.file_object import File
 from cybox.common import Hash
 from cybox.objects.address_object import Address
+from cybox.objects.domain_name_object import DomainName
 from cybox.objects.uri_object import URI
 from cybox.objects.email_message_object import EmailMessage, EmailHeader
 import warnings
@@ -25,7 +26,8 @@ filenames = []
 ip_addresses = []
 urls = []
 email_subjects = []
-email_sender = ['kamarizal@gmail.com']
+email_sender = []
+domain = ['www.google.com.lol']
 
 iocs = {
     'title': stixTitle,
@@ -35,7 +37,8 @@ iocs = {
     'ips': ip_addresses,
     'urls': urls,
     'subject': email_subjects,
-    'senders': email_sender
+    'senders': email_sender,
+    'domains': domain
 }
 
 # disable warning 'The use of this field has been deprecated' - STIXHeader()
@@ -83,6 +86,16 @@ def main(iocs=iocs):
             indicator_ip.add_observable(addr)
         stix_package.add_indicator(indicator_ip)
 
+    # add indicator - domains
+    if iocs.get('domains'):
+        indicator_domains = Indicator(title="Malicious Domains")
+        indicator_domains.add_indicator_type("Domain Watchlist")
+        for domain in iocs['domains']:
+            domain_name = DomainName()
+            domain_name.value = domain
+            indicator_domains.add_observable(domain_name)
+        stix_package.add_indicator(indicator_domains)        
+    
     # add indicator - url
     if iocs.get('urls'):
         indicator_url = Indicator(title='Malicious URL')
@@ -91,8 +104,8 @@ def main(iocs=iocs):
             url = URI()
             url.value = _url
             url.type_ = URI.TYPE_URL
-            # url.value.condition = "Equals"
-            url.value.condition = "Contains"
+            url.value.condition = "Equals"
+            # url.value.condition = "Contains"
             indicator_url.add_observable(url)
         stix_package.add_indicator(indicator_url)
 
@@ -125,7 +138,6 @@ def main(iocs=iocs):
     # print(type(stix_package.to_xml(encoding=None)))
     return stix_package.to_xml(encoding=None)
     
-
 
 if __name__ == '__main__':
     # stix_output = main()
