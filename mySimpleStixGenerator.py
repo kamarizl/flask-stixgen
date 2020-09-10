@@ -91,7 +91,8 @@ def main(iocs=iocs):
             url = URI()
             url.value = _url
             url.type_ = URI.TYPE_URL
-            url.value.condition = "Equals"
+            # url.value.condition = "Equals"
+            url.value.condition = "Contains"
             indicator_url.add_observable(url)
         stix_package.add_indicator(indicator_url)
 
