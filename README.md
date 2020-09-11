@@ -7,4 +7,6 @@ Simple app to generate STIX file.
 
         docker-compose -f "docker-compose.yml" up -d --build
 
-3. Go to http://url:5151
+3. Go to http://localhost:5151  
+
+![]("screenshot1.png")
